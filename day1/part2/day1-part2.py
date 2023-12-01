@@ -24,26 +24,26 @@ with open('input.txt', 'r') as f:
   for line in f:
     line.strip()
 
-    search_terms = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    search_terms = list(value_dict.keys())
     
-    firstDigitIndex = len(line)
     firstDigit = ""
-    for term in search_terms:
-        if term in line:
-            index = line.index(term)
-            if index < firstDigitIndex:
-                firstDigitIndex = index
-                firstDigit = term
-      
-    lastDigitIndex = -1
     lastDigit = ""
+    firstDigitIndex = len(line)
+    lastDigitIndex = -1
+
     for term in search_terms:
         if term in line:
-            index = line.rindex(term)
-            if index > lastDigitIndex:
-                lastDigitIndex = index
-                lastDigit = term
-    
-    sum += int(value_dict[firstDigit] + value_dict[lastDigit])
+            firstIndex = line.index(term)
+            lastIndex = line.rindex(term)
+
+            if firstIndex < firstDigitIndex:
+                firstDigitIndex = firstIndex
+                firstDigit = value_dict[term]
+            
+            if lastIndex > lastDigitIndex:
+                lastDigitIndex = lastIndex
+                lastDigit = value_dict[term]
+
+    sum += int(firstDigit + lastDigit)
 
   print(sum)
