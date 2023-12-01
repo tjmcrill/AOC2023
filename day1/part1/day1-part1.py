@@ -1,25 +1,17 @@
 with open('input.txt', 'r') as f:
-    sum = 0
+    total_sum = 0
     for line in f:
-        line.strip()
+        # Find the first and last digit
+        first_digit = None
+        last_digit = None
+        for char in line:
+            if char.isdigit():
+                if first_digit is None:
+                    first_digit = int(char)
+                last_digit = int(char)
 
-        firstIndex = 0
-        lastIndex = len(line) - 1
-
-        firstChar = line[0]
-        lastChar = line[-1]
-
-        while not (firstChar.isdigit() and lastChar.isdigit()):
-            if not firstChar.isdigit():
-                firstChar = line[firstIndex + 1]
-                firstIndex += 1
-            if not lastChar.isdigit():
-                lastChar = line[lastIndex - 1]
-                lastIndex -= 1
-            
-            if firstIndex == lastIndex:
-                break
-        
-        sum += int(firstChar + lastChar)
-        
-    print(sum)
+        # Check if both the first and last digits are found
+        if first_digit is not None and last_digit is not None:
+            calibration_value = int(str(first_digit) + str(last_digit))
+            total_sum += calibration_value
+    print(total_sum)
